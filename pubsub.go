@@ -7,11 +7,9 @@ import (
 	"log"
 
 	"cloud.google.com/go/pubsub"
-
+	"github.com/mitchellh/mapstructure"
 	"go.k6.io/k6/js/modules"
 	"go.k6.io/k6/lib"
-
-	"github.com/mitchellh/mapstructure"
 )
 
 // Register the extension on module initialization, available to
