@@ -42,14 +42,6 @@ func (ps *PubSub) Publisher(config map[string]interface{}) *pubsub.Client {
 }
 
 func (ps *PubSub) Publish(ctx context.Context, p *pubsub.Client, topic, msg string) error {
-	//state := lib.GetScenarioState(ctx)
-	//
-	//if state == nil {
-	//	err := errors.New("xk6-pubsub: state is nil")
-	//	ReportError(err, "cannot determine state")
-	//	return err
-	//}
-
 	t := p.Topic(topic)
 	r := t.Publish(
 		ctx,
