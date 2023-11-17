@@ -2,14 +2,12 @@ package pubsub
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 
 	"cloud.google.com/go/pubsub"
 	"github.com/mitchellh/mapstructure"
 	"go.k6.io/k6/js/modules"
-	"go.k6.io/k6/lib"
 )
 
 // Register the extension on module initialization, available to
@@ -44,13 +42,13 @@ func (ps *PubSub) Publisher(config map[string]interface{}) *pubsub.Client {
 }
 
 func (ps *PubSub) Publish(ctx context.Context, p *pubsub.Client, topic, msg string) error {
-	state := lib.GetScenarioState(ctx)
-
-	if state == nil {
-		err := errors.New("xk6-pubsub: state is nil")
-		ReportError(err, "cannot determine state")
-		return err
-	}
+	//state := lib.GetScenarioState(ctx)
+	//
+	//if state == nil {
+	//	err := errors.New("xk6-pubsub: state is nil")
+	//	ReportError(err, "cannot determine state")
+	//	return err
+	//}
 
 	t := p.Topic(topic)
 	r := t.Publish(
