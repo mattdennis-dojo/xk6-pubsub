@@ -41,7 +41,8 @@ func (ps *PubSub) Publisher(config map[string]interface{}) *pubsub.Client {
 	return client
 }
 
-func (ps *PubSub) Publish(ctx context.Context, p *pubsub.Client, topic, msg string) error {
+func (ps *PubSub) Publish(p *pubsub.Client, topic, msg string) error {
+	ctx := context.Background()
 	t := p.Topic(topic)
 	r := t.Publish(
 		ctx,
