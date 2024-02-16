@@ -44,6 +44,8 @@ func (ps *PubSub) Publisher(config map[string]interface{}) *pubsub.Client {
 func (ps *PubSub) Publish(p *pubsub.Client, topic, msg string) error {
 	ctx := context.Background()
 	t := p.Topic(topic)
+	defer t.Stop()
+
 	r := t.Publish(
 		ctx,
 		&pubsub.Message{
@@ -51,10 +53,16 @@ func (ps *PubSub) Publish(p *pubsub.Client, topic, msg string) error {
 		},
 	)
 
-	_, err := r.Get(ctx)
-	if err != nil {
-		ReportError(err, fmt.Sprintf("xk6-pubsub: unable to publish message: message was '%s', topic was '%s'", msg, topic))
-		return err
+	var results []*pubsub.PublishResult
+	results = append(results, r)
+
+	for _, r := range results {
+		id, err := r.Get(ctx)
+		if err != nil {
+			fmt.Printf("Failed to publish: %v", err)
+			return err
+		}
+		fmt.Printf("Published a message with a message ID: %s\n", id)
 	}
 
 	return nil
