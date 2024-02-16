@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"cloud.google.com/go/pubsub"
 	"github.com/mitchellh/mapstructure"
@@ -32,6 +33,9 @@ func (ps *PubSub) Publisher(config map[string]interface{}) *pubsub.Client {
 		log.Fatalf("xk6-pubsub: unable to read publisher config: %v", err)
 	}
 	ctx := context.Background()
+
+	fmt.Println(os.Getenv("PUBSUB_EMULATOR_HOST"))
+
 	client, err := pubsub.NewClient(ctx, cnf.ProjectID)
 
 	if err != nil {
