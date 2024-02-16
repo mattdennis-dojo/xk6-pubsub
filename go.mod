@@ -1,4 +1,4 @@
-module github.com/mattdennis/xk6-pubsub
+module github.com/mattdennis-dojo/xk6-pubsub
 
 go 1.21
 
